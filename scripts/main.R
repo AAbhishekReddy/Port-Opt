@@ -1,6 +1,6 @@
 library(GA)
 library(ggplot2)
-library(plotrix)
+#library(plotrix)
 
 
 sharpe_ratio = function(x) { 
@@ -34,7 +34,7 @@ portfolio_returns = function(x) {
 }
 
 
-#setwd("D:\\PortfolioOptimizationUsingGA")
+#setwd("/home/ghost/Desktop/Port-Opt/data/")
 csv_files = c("AAPL.csv","TSLA.csv","AMZN.csv","GOOG.csv","NFLX.csv","FB.csv")
 merged_file = NULL
 
@@ -75,6 +75,37 @@ ga_res = ga(
   monitor=TRUE,
   seed=1
 )
+
+new_ga = ga(
+            type="real-valued", 
+            function(x){-obj(x)}, 
+            lower = rep(0,ncol(profit)), 
+            upper = rep(1,ncol(profit)),
+            #population = gaControl(gareal)$population,
+            #selection = gaControl(type)$selection,
+            #crossover = gaControl(type)$crossover, 
+            #mutation = gaControl(type)$mutation,
+            #popSize = 50, 
+            pcrossover = 0.8, 
+            pmutation = 0.1, 
+            #elitism = base::max(1, round(popSize*0.05)), 
+            updatePop = FALSE,
+            postFitness = NULL,
+            maxiter = 10000,
+            run = 100,
+            maxFitness = Inf,
+            names = NULL,
+            suggestions = NULL, 
+            optim = TRUE,
+            optimArgs = list(method = "L-BFGS-B", 
+                             poptim = 0.05,
+                             pressel = 0.5,
+                             control = list(fnscale = -1, maxit = 100)),
+            keepBest = FALSE,
+            parallel = TRUE,
+            monitor = if(interactive()) gaMonitor else FALSE,
+            seed = NULL)
+
 summary(ga_res)
 sol = as.vector(summary(ga_res)$solution)
 
