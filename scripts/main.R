@@ -34,16 +34,17 @@ portfolio_returns = function(x) {
 }
 
 
-#setwd("/home/ghost/Desktop/Port-Opt/data/")
-csv_files = c("AAPL.csv","TSLA.csv","AMZN.csv","GOOG.csv","NFLX.csv","FB.csv")
+setwd("/home/ghost/Desktop/Port-Opt/new_york/Data")
+#csv_files = c("AAPL.csv","TSLA.csv","AMZN.csv","GOOG.csv","NFLX.csv","FB.csv")
+csv_files = c("a.csv","aal.csv","aap.csv","aapl.csv","abc.csv","abt.csv")
 merged_file = NULL
 
 n = length(csv_files)
 
 for (i in 1:n) {
   csv = read.csv(csv_files[i])
-  csv = csv[,c("Date","Close")]
-  names(csv) = c("Date",csv_files[i])
+  csv = csv[,c("date","close")]
+  names(csv) = c("date",csv_files[i])
   if (i == 1) merged_file = csv
   else merged_file = merge(merged_file,csv)
 }
