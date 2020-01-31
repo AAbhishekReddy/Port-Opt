@@ -12,7 +12,7 @@ old_obj  = function(x) {
   return (-old_sr(x)+100*penalty(x))
 }
 
-penalty = function(x) {
+old_penalty = function(x) {
   penalties = (sum(x)-1)*(sum(x)-1)   
   
   for (i in 1:length(x)) {
@@ -34,7 +34,7 @@ old_portfolio_returns = function(x) {
 }
 
 
-# setwd("/home/ghost/Desktop/Port-Opt/new_york/Data")
+#setwd("/home/ghost/Desktop/Port-Opt/new_york")
 csv_files = c("a.csv","aal.csv","aap.csv","aapl.csv","abc.csv","abt.csv")
 merged_file = NULL
 
@@ -103,7 +103,7 @@ old_ga = ga(
 #   seed = NULL)
 
 summary(old_ga)
-old_sol = as.vector(summary(old_ga)$solution)
+old_sol = as.vector(summary(old_ga)$old_solution)
 
 cbind(names(profit_old),old_sol)
 

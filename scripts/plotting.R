@@ -1,9 +1,9 @@
 # Over lay graphs
 jpeg("overlay.jpeg", width = 1100, height = 700) 
 
-plot(cumsum(results),type="l",lwd=5, col = "black", main = "Optimized Portfolio")
+plot((results),type="l",lwd=5, col = "black", main = "Optimized Portfolio")
 
-lines(cumsum(profit[,1]), col = "red")
+lines(cumsum(profit[,7]), col = "red")
 lines(cumsum(profit[,2]), col = "green")
 lines(cumsum(profit[,3]), col = "blue")
 lines(cumsum(profit[,4]), col = "yellow")
@@ -15,11 +15,11 @@ dev.off()
 
 # profit induvidual distribution
 jpeg("opt-profit.jpeg", width = 1100, height = 700) 
-plot(results, type = 'l', lwd = 8, col = "black", main = "Optimised Portfolio", ylab = "Profit")
+plot((results), type = 'l', lwd = 8, col = "black", main = "Optimised Portfolio", ylab = "Profit")
 dev.off() 
 
 jpeg("aapl-profit.jpeg", width = 1100, height = 700) 
-plot(profit[,1], type = 'l', lwd = 8, col = "red", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,6]), type = 'l', lwd = 8, col = "red", main = "AAPL", ylab = "Profit")
 dev.off() 
 
 jpeg("tsla-profit.jpg", width = 1100, height = 700) 
