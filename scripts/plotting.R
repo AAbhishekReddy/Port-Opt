@@ -1,9 +1,9 @@
 # Over lay graphs
-jpeg("overlay.jpeg", width = 1100, height = 700) 
+jpeg("Optimisized - port.jpeg", width = 1100, height = 700) 
 
-plot((results),type="l",lwd=5, col = "black", main = "Optimized Portfolio")
+plot(cumsum(results),type="l",lwd=5, col = "black", main = "Optimized Portfolio")
 
-lines(cumsum(profit[,7]), col = "red")
+lines(cumsum(profit[,1]), col = "red")
 lines(cumsum(profit[,2]), col = "green")
 lines(cumsum(profit[,3]), col = "blue")
 lines(cumsum(profit[,4]), col = "yellow")

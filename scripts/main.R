@@ -158,6 +158,7 @@ new_sol = abs(new_sol)
 new_sol = new_sol * 10
 new_sol[1] = new_sol[1] * 100
 new_sol[6] = new_sol[6] * 1000
+new_sol = new_sol - 0.1
 
 # new_sol = new_sol + 1 
 cbind(names(pp),new_sol)
