@@ -49,7 +49,8 @@ rf_t = function(x) {
   # print(length(port.returns))
   return (risk.returns)
 }
-
+# edits 
+# profit[7] = profit[7] * 10
 
 
 # Dataset reading and preperation
