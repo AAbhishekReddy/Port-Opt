@@ -7,8 +7,8 @@ library(ggplot2)
 
 # Fitness function creation
 sharpe_ratio = function(x) { 
-  # return ((mean(portfolio_returns(x)) - (mean(rf_t(x))))/sqrt(var(portfolio_returns(x))))
-  return ((mean(portfolio_returns(x)) - (mean(profit[,7])))/sqrt(var(portfolio_returns(x))))
+  return ((mean(portfolio_returns(x)) - (mean(rf_t(x))))/sqrt(var(portfolio_returns(x))))
+  # return ((mean(portfolio_returns(x)) - (mean(profit[,7])))/sqrt(var(portfolio_returns(x))))
 }
 
 obj  = function(x) {
@@ -54,13 +54,17 @@ rf_t = function(x) {
 
 
 # Dataset reading and preperation
-# setwd("/home/ghost/Desktop/Port-Opt/new_york/Data")
+# setwd("E:/here/Desktop Files/College-Materials/major/major/Port-Opt/new_york/Data")
 #csv_files = c("AAPL.csv","TSLA.csv","AMZN.csv","GOOG.csv","NFLX.csv","FB.csv")
+
+# Selecting the required datasets of companies
 csv_files = c("a.csv","aal.csv","aap.csv","aapl.csv","abc.csv","abt.csv")
 merged_file = NULL
 
+# Calculating the lenght of the vector csv_files
 n = length(csv_files)
 
+# Merging the files using date and close colums of each company
 for (i in 1:n) {
   csv = read.csv(csv_files[i])
   csv = csv[,c("date","close")]
@@ -69,6 +73,7 @@ for (i in 1:n) {
   else merged_file = merge(merged_file,csv)
 }
 
+# Storing the merged file
 write.csv(merged_file, file = "merged-file.csv")
 
 # Reading new merged file with risk free rate
@@ -87,9 +92,12 @@ for (i in 2:n) {
   merged_file[,i] = returns 
 }
 
+# Loading all the profits to a new dataframe
 profit = merged_file[2:nrow(merged_file),2:ncol(merged_file)]
 
+# loading the data into a .csv file
 write.csv(profit, "profit.csv")
+
 profit <- read.csv("profit.csv")
 
 profit = profit[-c(1)]
@@ -104,7 +112,7 @@ ga_res = ga(
   function(x){-obj(x)}, 
   lower = rep(0,ncol(profit) - 1), 
   upper = rep(1,ncol(profit) - 1), 
-  maxiter = 1000,
+  maxiter = 2000,
   run=100, 
   monitor=TRUE,
   seed=1
@@ -112,7 +120,7 @@ ga_res = ga(
 # summary(ga_res)
 gen_sol = as.vector(summary(ga_res)$solution)
 
-cbind(names(profit),gen_sol)
+cbind(names(pp),gen_sol)
 
 gen_results = portfolio_returns(gen_sol)
 
@@ -130,11 +138,17 @@ pp = profit[-c(7)]
 
 # -- With local search using the L-BFGS-B algorithm
 new_ga = ga(
+            # Setting the type of values that are being fed in
             type="real-valued", 
+            # FItness function
             function(x){-obj(x)}, 
+            # x_i >= 0
             lower = rep(0,ncol(pp)), 
+            # x_i <= 1
             upper = rep(1,ncol(pp)),
+            # Setting the Probability for crossover
             pcrossover = 0.8, 
+            # Setting the Probability for mutation
             pmutation = 0.1, 
             updatePop = FALSE,
             postFitness = NULL,
@@ -143,12 +157,15 @@ new_ga = ga(
             maxFitness = Inf,
             names = NULL,
             suggestions = NULL, 
+            # Enabling the general purpose optimisation
             optim = TRUE,
+            # Enabling the Nelder - Mead optimisation
             optimArgs = list(method = "Nelder-Mead", 
                              poptim = 0.05,
                              pressel = 0.5,
                              control = list(fnscale = -1, maxit = 1000)),
             keepBest = FALSE,
+            # Enabling the multicore usage of the CPU
             parallel = TRUE,
             monitor = if(interactive()) gaMonitor else FALSE,
             seed = NULL)
@@ -167,10 +184,10 @@ cbind(names(pp),new_sol)
 results = portfolio_returns(new_sol)
 
 # results
-jpeg("modified - alloc.jpeg", width = 1100, height = 700) 
+jpeg("assalloc.jpeg", width = 1100, height = 700) 
 piepercent<- round(100*new_sol/sum(new_sol), 1)
 companies = c("A", "AAL", "AAP", "AAPL", "ABC", "ABT")
 pie(new_sol, labels = piepercent, col = rainbow(length(new_sol)), main = "Asset Allocation")
-legend("topright", companies, cex = 0.8, fill = rainbow(length(new_sol)))
+legend("right", companies, cex = 0.8, fill = rainbow(length(new_sol)))
 dev.off()   
 # End of modified genetic algorithm.

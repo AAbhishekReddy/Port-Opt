@@ -1,6 +1,19 @@
+# Import the data handleinig package
 import pandas as pd
 
+# Reading the raw data set
 ps = pd.read_csv("prices-split-adjusted.csv")
+
+# Creting a vector with all the unique names of the companies
+names = ps["symbol"]
+names.values.tolist()
+names = list(set(names))
+names.sort()
+
+# Creating a dataset for every company listed and writing them in to a file
+for i in names:
+    ps.loc[ps["symbol"] == i].to_csv(i + ".csv")
+
 
 ps.head()
 # wltw = ps.loc[ps["symbol"] == "WLTW"]
@@ -24,14 +37,6 @@ ps.head()
 # abt = ps.loc[ps["symbol"] == 'ABT']
 # abt.to_csv("abt.csv")
 
-
-names = ps["symbol"]
-names.values.tolist()
-names = list(set(names))
-names.sort()
-
-for i in names:
-    ps.loc[ps["symbol"] == i].to_csv(i + ".csv")
 
 #%%
 print "hello"

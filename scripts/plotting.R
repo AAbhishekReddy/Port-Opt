@@ -9,7 +9,7 @@ lines(cumsum(profit[,3]), col = "blue")
 lines(cumsum(profit[,4]), col = "yellow")
 lines(cumsum(profit[,5]), col = "orange")
 lines(cumsum(profit[,6]), col = "purple")
-legend("topleft", legend=c("AAPL", "TSLA", "AMZN", "GOOG", "NFLX", "FB"),
+legend("topleft", legend=c("A", "AAL", "AAP", "AAPL", "ABC", "ABT"),
        col=c("red", "green", "blue", "yellow", "orange", "purple"), lty=1, cex=0.8)
 dev.off() 
 
@@ -49,28 +49,28 @@ jpeg("opt-cumsum.jpeg", width = 1100, height = 700)
 plot(cumsum(results), type = "l", lwd = 8, col = "black", main = "Optimized portfolio")
 dev.off() 
 
-jpeg("aapl-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,1]), type = "l", lwd = 8, col = "red", main = "AAPL")
+jpeg("a.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,1]), type = "l", lwd = 8, col = "red", main = "A")
 dev.off() 
 
-jpeg("tsla-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,2]), type = "l", lwd = 8, col = "green", main = "TSLA")
+jpeg("aal.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,2]), type = "l", lwd = 8, col = "green", main = "AAP")
 dev.off() 
 
-jpeg("amzn-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,3]), type = "l", lwd = 8, col = "blue", main = "AMZN")
+jpeg("aap.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,3]), type = "l", lwd = 8, col = "blue", main = "AAP")
 dev.off() 
 
-jpeg("goog-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,3]), type = "l", lwd = 8, col = "yellow", main = "GOOG")
+jpeg("aapl.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,3]), type = "l", lwd = 8, col = "yellow", main = "AAPL")
 dev.off() 
 
-jpeg("nflx-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,5]), type = "l", lwd = 8, col = "orange", main = "NFLX")
+jpeg("abc.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,5]), type = "l", lwd = 8, col = "orange", main = "ABC")
 dev.off() 
 
-jpeg("fb-cumsum.jpeg", width = 1100, height = 700) 
-plot(cumsum(profit[,6]), type = "l", lwd = 8, col = "purple", main = "FB")
+jpeg("abt.jpeg", width = 1100, height = 700) 
+plot(cumsum(profit[,6]), type = "l", lwd = 8, col = "purple", main = "ABT")
 dev.off() 
 
 # Asset Allocation Plot
@@ -80,3 +80,14 @@ companies = c("AAPL", "TSLA", "AMZN", "GOOG", "NFLX", "FB")
 pie(sol, labels = piepercent, col = rainbow(length(sol)), main = "Asset Allocation")
 legend("topright", companies, cex = 0.8, fill = rainbow(length(sol)))
 dev.off() 
+
+
+# Subplots
+
+par(mfrow = c(3,2))
+plot(cumsum(profit[,1]), type = 'l', lwd = 5, col = "red", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,2]), type = 'l', lwd = 5, col = "green", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,3]), type = 'l', lwd = 5, col = "blue", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,4]), type = 'l', lwd = 5, col = "yellow", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,5]), type = 'l', lwd = 5, col = "orange", main = "AAPL", ylab = "Profit")
+plot(cumsum(profit[,6]), type = 'l', lwd = 5, col = "purple", main = "AAPL", ylab = "Profit")
